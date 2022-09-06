@@ -39,7 +39,7 @@ class orderController{
         }
     }
     //GET USER ORDERs
-    static async getSingleCart(req,res){
+    static async getSingleOrder(req,res){
         try {
             const orders = await Order.find({userId: req.params.userId})
             return res.status(200).json({message:"orders  found",orders })
