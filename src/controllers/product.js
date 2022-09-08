@@ -1,9 +1,20 @@
 import Product from "../models/Product"
+import cloudinary from "../helper/cloudinary"
 
 class productController{
     static async createProduct(req,res){
         try {
-            const newProduct = new Product(req.body)
+
+            const result = await cloudinary.uploader.upload(req.file.path)
+            const newProduct = new Product({
+                title: req.body.title,
+                desc:req.body.desc,
+                img:result.secure_url,
+                categories:req.body.categories,
+                size:req.body.size,
+                color:req.body.color,
+                price: req.body.price
+            })
             const product = await newProduct.save()
             return res.status(200).json({message:"product created successfully",product})  
         } catch (error) {

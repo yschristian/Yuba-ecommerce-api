@@ -1,17 +1,22 @@
 import mongoose from "mongoose"
 
-const productSchema = new mongoose.Schema({
-    title : { type: String,required:true, unique: true },
-    desc : { type: String,required:true },
-    img : { type: String,required:true },
-    categories : { type: Array },
-    size : { type: String, },
-    color : { type: String, },
-    price : { type: Number,required:true },
+const cartSchema = new mongoose.Schema({
+
+    userId :{type:String , required: true},
+    products:[{
+        productId:{
+            type: String
+        },
+        quantity:{
+            type:Number,
+            default:1
+        },
+    },
+    ],
 },{
     timestamps:true
 }
 )
 
-const Product = mongoose.model("products", productSchema)
-export default Product
+const Cart = mongoose.model("carts", cartSchema)
+export default Cart

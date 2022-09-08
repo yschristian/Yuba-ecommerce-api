@@ -21,7 +21,7 @@ class cartController{
             },
             { new:true}
             )
-            return res.status(200).json({message:"user updated successfully", updateCart})
+            return res.status(200).json({message:"cart updated successfully", updateCart})
         } catch (error) {
             return res.status(500).json({error:error.message})
         }
