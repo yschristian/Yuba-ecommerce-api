@@ -1,34 +1,41 @@
-import { verify } from "../helper/jwt";
+const jwt = require("jsonwebtoken");
 
-export const verifyToken = async(req, res, next)=>{
-  try {
-    const token = req.header('Authorization').replace('Bearer ', '');
-    const user = verify(token);
-    console.log(user)
-    req.token = token;
-    req.user = user;
-    return next();
-  } catch (error) {
-    console.log(error)
+const verifyToken = (req, res, next) => {
+  const authHeader = req.headers.token;
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+    jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+      if (err) res.status(403).json("Token is not valid!");
+      req.user = user;
+      next();
+    });
+  } else {
+    return res.status(401).json("You are not authenticated!");
   }
-}
+};
 
-export const verifyTokenAndAuthorization = (req ,res, next)=>{
-        verifyToken(res , req, ()=>{
-          if(req.user.id === req.params.id || req.user.isAdmin){
-            next()
-          }
-          return res.status(403).json({error:"you are not allowed to do that!"})
-        })
-    
-}
+const verifyTokenAndAuthorization = (req, res, next) => {
+  verifyToken(req, res, () => {
+    if (req.user.id === req.params.id || req.user.isAdmin) {
+      next();
+    } else {
+      res.status(403).json("You are not alowed to do that!");
+    }
+  });
+};
 
-export const verifyTokenAndAdmin = (req,res,next)=>{
-        verifyToken(res , req, ()=>{
-          if(req.user.isAdmin){
-            next()
-          }
-          return res.status(403).json({error:"you are not allowed to do that!"})
-        })
-    
-}
+const verifyTokenAndAdmin = (req, res, next) => {
+  verifyToken(req, res, () => {
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      res.status(403).json("You are not alowed to do that!");
+    }
+  });
+};
+
+module.exports = {
+  verifyToken,
+  verifyTokenAndAuthorization,
+  verifyTokenAndAdmin,
+};
