@@ -1,14 +1,13 @@
 {
   "name": "ecommerce-api",
   "version": "1.0.0",
-  "description": "ecommerce",
+  "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "dev": "nodemon --exec babel-node src/index.js",
     "start": "node --require @babel/polyfill src/index.js"
   },
-  "author": "yubaDev",
+  "author": "",
   "license": "ISC",
   "engines": {
     "node": "16.13.1"
