@@ -1,4 +1,6 @@
-const stripe = require("stripe")(process.env.STRIPE_KEY)
+
+import stripe from "stripe"
+const stKEY = process.env.STRIPE_KEY
 
 class paymentController{
 
