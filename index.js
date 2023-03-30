@@ -1,11 +1,11 @@
 import express  from "express";
 import dotenv from 'dotenv';
-import connectDb from "./database/dbConnect"
-import userRouter from "./routes/userRoute"
-import productRouter from "./routes/productRouter"
-import orderRouter from "./routes/orderRouter"
-import cartRouter from "./routes/cartRouter"
-import stripeRouter from "./routes/stripeRouter";
+import connectDb from "./src/database/dbConnect"
+import userRouter from "./src/routes/userRoute"
+import productRouter from "./src/routes/productRouter"
+import orderRouter from "./src/routes/orderRouter"
+import cartRouter from "./src/routes/cartRouter"
+import stripeRouter from "./src/routes/stripeRouter";
 import cors from "cors"
 
 dotenv.config()
